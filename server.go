@@ -17,6 +17,6 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", mainPage)
-	log.Println("Server start at port :8000")
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Println("Server start at port :8002")
+	log.Fatal(http.ListenAndServe(":8002", nil))
 }
