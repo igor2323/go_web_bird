@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funny bird</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container-1{
+                display: flex;
+                flex-wrap: wrap;
+        }
+
+        .container-1 div{
+            padding: 10px;
+        }
+
+        .left{
+            padding-left: auto;
+            padding-right: auto;
+            flex: 4;
+        }
+
+        .right{
+            flex: 1;
+            min-width: 200px;
+            margin: 20px;
+        }
+
+        .iframe{
+            display:block;
+            margin: 0 auto;
+        }
+
+
+        @media screen and (min-width: 400px){
+            .iframe{
+                height: 590px;
+                width: 370px;
+
+            }
+        }
+        @media screen and (min-width: 900px){
+            .iframe{
+                height: 900px;
+                width: 564px;
+
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-1">
+        <div class="left"><iframe src="bird_game" width="300" height="480" frameborder="0" id="bird_game" allow="autoplay" class="iframe"></iframe></div>
+        <div class="right">
+            <h1>Leaderboard: (SITE ON BETA)</h1>
+            <ul style="padding-left: 35px;">
+                <li>Чебурашка</li>
+                <li>Крокодил Гена</li>
+                <li>Шапокляк</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+<script>
+
+</script>
+</html>
