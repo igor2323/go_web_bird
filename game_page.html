@@ -10,7 +10,7 @@
                 };
             }
 			const go = new Go();
-			WebAssembly.instantiateStreaming(fetch("sprites/game.wasm"), go.importObject).then((result) => {
+			WebAssembly.instantiateStreaming(fetch("sprites/main.wasm"), go.importObject).then((result) => {
 				go.run(result.instance);
 			});
 		</script>
