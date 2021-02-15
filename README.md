@@ -1,4 +1,4 @@
-# The Go Programming Language
+# Funny Bird
 
 Funny Bird is a small browser game
 
