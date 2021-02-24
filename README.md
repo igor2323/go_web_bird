@@ -1,6 +1,6 @@
-# Funny Bird
+# Flappy Bird
 
-Funny Bird is a small browser game
+Flappy Bird is a small browser game
 
 ![Bird image](sprites/yellowbird-upflap.png)
 
