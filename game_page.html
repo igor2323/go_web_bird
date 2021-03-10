@@ -14,7 +14,7 @@
                     success: function( result ) {
                         var your_username_id = window.parent.document.getElementById("your_username_id");
                         var your_rank_id = window.parent.document.getElementById("your_rank_id");
-
+// style="overflow: hidden; text-overflow: ellipsis;"
                         if (result.length == 2){
                             let rank = parseInt(result[1].Rank) + 1;
                             your_username_id.innerHTML = "Name: " + result[1].Member;
@@ -27,6 +27,8 @@
                                 let rank = parseInt(i) + 1;
                                 li.innerHTML = rank + " - " + result[0][i].Member + " - " + result[0][i].Score;
                                 li.style.fontSize = "xx-large";
+                                li.style.overflow = "hidden";
+                                li.style.textOverflow = "ellipsis";
                                 ul.appendChild(li);
                             }
                         }else{
@@ -43,9 +45,18 @@
                             $(ul).empty();
                             for (i in result){
                                 var li = document.createElement("li");
+                                var p = document.createElement("p");
+
                                 let rank = parseInt(i) + 1;
-                                li.innerHTML = rank + " - " + result[i].Member + " - " + result[i].Score;
+                                // p.innerHTML = rank + "-" + result[i].Member + "-" + result[i].Score;
+                                p.innerHTML = result[i].Member;
+                                p.style.fontSize = "xx-large";
+                                p.style.overflow = "hidden";
+                                p.style.textOverflow = "clip";
+                                p.style.width = "18ch";
                                 li.style.fontSize = "xx-large";
+
+                                li.appendChild(p);
                                 ul.appendChild(li);
                             }
                         }
