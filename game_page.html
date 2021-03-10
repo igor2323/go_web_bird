@@ -1,8 +1,75 @@
 <html>
 	<head>
 		<meta charset="utf-8"/>
-		<script src="wasm_exec.js"></script>
+		<script src="/wasm_exec.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script>
+            function GetLeaderboard(){
+                $.ajax({
+                    type: 'GET',
+                    url: "/get_leaderboard",
+                    data: {
+                        username: username,
+                    },
+                    success: function( result ) {
+                        console.log(result)
+                        var your_username_id = window.parent.document.getElementById("your_username_id");
+                        var your_rank_id = window.parent.document.getElementById("your_rank_id");
+
+                        if (result.length == 2){
+                            let rank = parseInt(result[1].Rank) + 1;
+                            your_username_id.innerHTML = "Name: " + result[1].Member;
+                            your_rank_id.innerHTML = "Score: " + result[1].Score + " (Top " + rank + ")";
+                            
+                            var ul = window.parent.document.getElementById("ul_board_id");
+                            $(ul).empty();
+                            for (i in result[0]){
+                                var li = document.createElement("li");
+                                let rank = parseInt(i) + 1;
+                                li.innerHTML = rank + " - " + result[0][i].Member + " - " + result[0][i].Score;
+                                li.style.fontSize = "xx-large";
+                                ul.appendChild(li);
+                            }
+                        }else{
+                            if (username == "Anonymous" || username == ""){
+                                your_username_id.innerHTML = "Name: Anonymous";
+                                your_rank_id.innerHTML = "Score: Choose your nickname";
+                            }else{
+                                your_username_id.innerHTML = "Name: " + username;
+                                your_rank_id.innerHTML = "Score: " + 0;
+                            }
+
+                            
+                            var ul = window.parent.document.getElementById("ul_board_id");
+                            $(ul).empty();
+                            for (i in result){
+                                var li = document.createElement("li");
+                                let rank = parseInt(i) + 1;
+                                li.innerHTML = rank + " - " + result[i].Member + " - " + result[i].Score;
+                                li.style.fontSize = "xx-large";
+                                ul.appendChild(li);
+                            }
+                        }
+                    }
+                });
+            }
+            coins = 0;
+            function GameOver(){
+                $.ajax({
+                    type: 'POST',
+                    url: "/save_user_result",
+                    data: {
+                        user_coins_str: username + "~" + String(coins),
+                    },
+                    success: function( result ) {
+                        GetLeaderboard();
+                    }
+                });
+                coins = 0;
+            }
+            function CoinPlus(){
+                coins++;
+            }
             if (!WebAssembly.instantiateStreaming) {
                 WebAssembly.instantiateStreaming = async (resp, importObject) => {
                     const source = await (await resp).arrayBuffer();
@@ -10,9 +77,13 @@
                 };
             }
 			const go = new Go();
-			WebAssembly.instantiateStreaming(fetch("game.wasm"), go.importObject).then((result) => {
+			WebAssembly.instantiateStreaming(fetch("/game.wasm"), go.importObject).then((result) => {
 				go.run(result.instance);
 			});
+
+            username = "";
+            username = prompt('Please enter your name!', 'Anonymous');
+            GetLeaderboard();
 		</script>
 	</head>
 </html>
