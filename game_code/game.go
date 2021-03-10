@@ -10,6 +10,8 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
+
+	"syscall/js"
 )
 
 const (
@@ -66,72 +68,72 @@ var (
 
 func init() {
 	var err error
-	BirdImageUp, _, err = ebitenutil.NewImageFromFile("sprites/yellowbird-upflap-min.png")
+	BirdImageUp, _, err = ebitenutil.NewImageFromFile("/sprites/yellowbird-upflap-min.png")
 	if err != nil {
 		panic(err)
 	}
-	StartMessageImageUp, _, err = ebitenutil.NewImageFromFile("sprites/message-min.png")
+	StartMessageImageUp, _, err = ebitenutil.NewImageFromFile("/sprites/message-min.png")
 	if err != nil {
 		panic(err)
 	}
-	GameOverImage, _, err = ebitenutil.NewImageFromFile("sprites/gameover-min.png")
+	GameOverImage, _, err = ebitenutil.NewImageFromFile("/sprites/gameover-min.png")
 	if err != nil {
 		panic(err)
 	}
-	BackgroundImage, _, err = ebitenutil.NewImageFromFile("sprites/background-day-min.png")
+	BackgroundImage, _, err = ebitenutil.NewImageFromFile("/sprites/background-day-min.png")
 	if err != nil {
 		panic(err)
 	}
-	PipeImage, _, err = ebitenutil.NewImageFromFile("sprites/pipe-green (1)-min.png")
+	PipeImage, _, err = ebitenutil.NewImageFromFile("/sprites/pipe-green (1)-min.png")
 	if err != nil {
 		panic(err)
 	}
-	NumberZeroImage, _, err = ebitenutil.NewImageFromFile("sprites/0-min.png")
-	if err != nil {
-		panic(err)
-	}
-
-	NumberOneImage, _, err = ebitenutil.NewImageFromFile("sprites/1-min.png")
+	NumberZeroImage, _, err = ebitenutil.NewImageFromFile("/sprites/0-min.png")
 	if err != nil {
 		panic(err)
 	}
 
-	NumberTwoImage, _, err = ebitenutil.NewImageFromFile("sprites/2-min.png")
+	NumberOneImage, _, err = ebitenutil.NewImageFromFile("/sprites/1-min.png")
 	if err != nil {
 		panic(err)
 	}
 
-	NumberThreeImage, _, err = ebitenutil.NewImageFromFile("sprites/3-min.png")
+	NumberTwoImage, _, err = ebitenutil.NewImageFromFile("/sprites/2-min.png")
 	if err != nil {
 		panic(err)
 	}
 
-	NumberFourImage, _, err = ebitenutil.NewImageFromFile("sprites/4-min.png")
+	NumberThreeImage, _, err = ebitenutil.NewImageFromFile("/sprites/3-min.png")
 	if err != nil {
 		panic(err)
 	}
 
-	NumberFiveImage, _, err = ebitenutil.NewImageFromFile("sprites/5-min.png")
+	NumberFourImage, _, err = ebitenutil.NewImageFromFile("/sprites/4-min.png")
 	if err != nil {
 		panic(err)
 	}
 
-	NumberSixImage, _, err = ebitenutil.NewImageFromFile("sprites/6-min.png")
+	NumberFiveImage, _, err = ebitenutil.NewImageFromFile("/sprites/5-min.png")
 	if err != nil {
 		panic(err)
 	}
 
-	NumberSevenImage, _, err = ebitenutil.NewImageFromFile("sprites/7-min.png")
+	NumberSixImage, _, err = ebitenutil.NewImageFromFile("/sprites/6-min.png")
 	if err != nil {
 		panic(err)
 	}
 
-	NumberEightImage, _, err = ebitenutil.NewImageFromFile("sprites/8-min.png")
+	NumberSevenImage, _, err = ebitenutil.NewImageFromFile("/sprites/7-min.png")
 	if err != nil {
 		panic(err)
 	}
 
-	NumberNineImage, _, err = ebitenutil.NewImageFromFile("sprites/9-min.png")
+	NumberEightImage, _, err = ebitenutil.NewImageFromFile("/sprites/8-min.png")
+	if err != nil {
+		panic(err)
+	}
+
+	NumberNineImage, _, err = ebitenutil.NewImageFromFile("/sprites/9-min.png")
 	if err != nil {
 		panic(err)
 	}
@@ -250,6 +252,14 @@ func (g *Game) FullReset() {
 	g.bird = Bird{BirdImageUp, screenWidth/2 - BirdImageWidth, screenHeight/2 - BirdImageHeight, true, false, 0, 0}
 }
 
+func (g *Game) CallGameOver() {
+	js.Global().Call("GameOver")
+}
+
+func (g *Game) CallCoinPlus() {
+	js.Global().Call("CoinPlus")
+}
+
 func (g *Game) Jump() {
 	g.acceleration = 0
 	g.bird.y -= 40
@@ -278,6 +288,7 @@ func (g *Game) Update() error {
 
 				if ChechCollision(g.bird, g.pipesArray[i]) {
 					g.bird.alive = false
+					g.CallGameOver()
 				}
 			}
 
@@ -292,6 +303,7 @@ func (g *Game) Update() error {
 
 			if g.bird.x >= g.pipesArray[0].x-1 && g.bird.x <= g.pipesArray[0].x+1 || g.bird.x >= g.pipesArray[1].x-1 && g.bird.x <= g.pipesArray[1].x+1 {
 				g.bird.coins += 1
+				g.CallCoinPlus()
 			}
 
 		} else {
