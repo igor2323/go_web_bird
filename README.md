@@ -2,7 +2,7 @@
 
 Flappy Bird is a small browser game
 
-![Bird image](sprites/yellowbird-upflap.png)
+![Bird image](sprites/yellowbird-upflap-min.png)
 
 ## Download and Install
 
