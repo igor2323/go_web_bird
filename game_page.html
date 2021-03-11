@@ -24,11 +24,26 @@
                             $(ul).empty();
                             for (i in result[0]){
                                 var li = document.createElement("li");
+                                var p_name = document.createElement("p");
+                                var p_score = document.createElement("p");
                                 let rank = parseInt(i) + 1;
-                                li.innerHTML = rank + " - " + result[0][i].Member + " - " + result[0][i].Score;
+
+                                p_name.innerHTML = result[0][i].Member;
+                                p_name.style.fontSize = "xx-large";
+                                p_name.style.overflow = "hidden";
+                                p_name.style.textOverflow = "clip";
+                                p_name.style.width = "12ch";
+                                p_name.style.float = "left";
+
+                                p_score.innerHTML = "- " + result[0][i].Score
+                                p_score.style.fontSize = "xx-large";
+                                p_score.style.overflow = "hidden";
+                                p_score.style.textOverflow = "clip";
+                                p_score.style.width = "5ch";
                                 li.style.fontSize = "xx-large";
-                                li.style.overflow = "hidden";
-                                li.style.textOverflow = "ellipsis";
+
+                                li.appendChild(p_name);
+                                li.appendChild(p_score);
                                 ul.appendChild(li);
                             }
                         }else{
@@ -45,18 +60,26 @@
                             $(ul).empty();
                             for (i in result){
                                 var li = document.createElement("li");
-                                var p = document.createElement("p");
-
+                                var p_name = document.createElement("p");
+                                var p_score = document.createElement("p");
                                 let rank = parseInt(i) + 1;
-                                // p.innerHTML = rank + "-" + result[i].Member + "-" + result[i].Score;
-                                p.innerHTML = result[i].Member;
-                                p.style.fontSize = "xx-large";
-                                p.style.overflow = "hidden";
-                                p.style.textOverflow = "clip";
-                                p.style.width = "18ch";
+
+                                p_name.innerHTML = result[i].Member;
+                                p_name.style.fontSize = "xx-large";
+                                p_name.style.overflow = "hidden";
+                                p_name.style.textOverflow = "clip";
+                                p_name.style.width = "12ch";
+                                p_name.style.float = "left";
+
+                                p_score.innerHTML = "- " + result[i].Score
+                                p_score.style.fontSize = "xx-large";
+                                p_score.style.overflow = "hidden";
+                                p_score.style.textOverflow = "clip";
+                                p_score.style.width = "5ch";
                                 li.style.fontSize = "xx-large";
 
-                                li.appendChild(p);
+                                li.appendChild(p_name);
+                                li.appendChild(p_score);
                                 ul.appendChild(li);
                             }
                         }
