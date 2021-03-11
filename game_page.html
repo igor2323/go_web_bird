@@ -14,7 +14,7 @@
                     success: function( result ) {
                         var your_username_id = window.parent.document.getElementById("your_username_id");
                         var your_rank_id = window.parent.document.getElementById("your_rank_id");
-// style="overflow: hidden; text-overflow: ellipsis;"
+
                         if (result.length == 2){
                             let rank = parseInt(result[1].Rank) + 1;
                             your_username_id.innerHTML = "Name: " + result[1].Member;
@@ -34,12 +34,15 @@
                                 p_name.style.textOverflow = "clip";
                                 p_name.style.width = "12ch";
                                 p_name.style.float = "left";
+                                p_name.style.whiteSpace = "nowrap";
 
                                 p_score.innerHTML = "- " + result[0][i].Score
                                 p_score.style.fontSize = "xx-large";
                                 p_score.style.overflow = "hidden";
                                 p_score.style.textOverflow = "clip";
                                 p_score.style.width = "5ch";
+                                p_score.style.whiteSpace = "nowrap";
+
                                 li.style.fontSize = "xx-large";
 
                                 li.appendChild(p_name);
@@ -70,12 +73,15 @@
                                 p_name.style.textOverflow = "clip";
                                 p_name.style.width = "12ch";
                                 p_name.style.float = "left";
+                                p_name.style.whiteSpace = "nowrap";
 
                                 p_score.innerHTML = "- " + result[i].Score
                                 p_score.style.fontSize = "xx-large";
                                 p_score.style.overflow = "hidden";
                                 p_score.style.textOverflow = "clip";
                                 p_score.style.width = "5ch";
+                                p_score.style.whiteSpace = "nowrap";
+
                                 li.style.fontSize = "xx-large";
 
                                 li.appendChild(p_name);
